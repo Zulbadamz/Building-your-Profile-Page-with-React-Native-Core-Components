@@ -1,98 +1,101 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View, Text, Image, ScrollView, TextInput } from 'react-native';
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+export default function ProfilePage() {
+  const [name, setName] = useState('');
+  const [comment, setComment] = useState('');
 
-export default function HomeScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+    <View style={styles.container}>
+      {/* Header Section */}
+      <View style={styles.header}>
+        <Text style={styles.headerText}>My Profile Page</Text>
+      </View>
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+      {/* Image Section */}
+      <Image
+        source={require('../assets/IMG_5870.jpeg')} 
+        style={styles.profileImage}
+      />
+
+      {/* Information Section */}
+      <ScrollView style={styles.scrollSection}>
+        <Text style={styles.infoText}>It's really beautiful day outside.</Text>
+        <Text style={styles.infoText}>Traditionally, high school athletes abash new team members; some call it roockie or freshman.</Text>
+        <Text style={styles.infoText}>You often hear the phase "aid and abet" on crime shows like Law and Order.</Text>
+        <Text style={styles.infoText}>Justin's one bad grade seemed to be an aberration given his history of strong academic performance.</Text>
+        <Text style={styles.infoText}>Getting pushed into the gym pool and yelling "Holy cow, that's cold" doesn't count as an ablution.</Text>
+      </ScrollView>
+
+      {/* Input Form Section */}
+      <View style={styles.formSection}>
+        <TextInput
+          style={styles.input}
+          placeholder="Enter your name"
+          value={name}
+          onChangeText={setName}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Write a comment"
+          value={comment}
+          onChangeText={setComment}
+        />
+        <Text style={styles.submitButton}>Submit</Text>
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
+  container: {
+    flex: 1,
+    backgroundColor: '#FFF8E7',
+  },
+  header: {
+    backgroundColor: '#6C63FF',
+    paddingVertical: 25,
     alignItems: 'center',
-    gap: 8,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  headerText: {
+    fontSize: 22,
+    color: '#FFFACD',
+    fontWeight: 'bold',
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  profileImage: {
+    width: '100%',
+    height: 220,
+    resizeMode: 'cover',
+    marginVertical: 10,
+  },
+  scrollSection: {
+    padding: 15,
+    marginVertical: 10,
+  },
+  infoText: {
+    fontSize: 16,
+    color: '#333',
+    marginBottom: 15,
+    lineHeight: 22,
+  },
+  formSection: {
+    paddingHorizontal: 20,
+    paddingBottom: 20,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    padding: 10,
+    marginBottom: 10,
+    backgroundColor: '#fff',
+  },
+  submitButton: {
+    textAlign: 'center',
+    backgroundColor: '#4B9CD3',
+    color: '#fff',
+    paddingVertical: 12,
+    borderRadius: 8,
+    fontWeight: 'bold',
   },
 });
